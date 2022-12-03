@@ -61,10 +61,9 @@ class Food(models.Model):
     img = models.ImageField(upload_to='food/')
 
 
-class Restaurant(models.Model):
-    name = models.CharField(max_length=210)
+class Menu(models.Model):
+    day = models.DateField(auto_now_add=True)
     food = models.ManyToManyField(Food)
-    staff = models.ManyToManyField(Staff)
 
 
 class Rooms(models.Model):
@@ -89,7 +88,6 @@ class Rooms(models.Model):
         (5, '5-start'),
     ))
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    rest = models.ForeignKey(Restaurant, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.video:
