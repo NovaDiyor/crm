@@ -8,8 +8,9 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     status = models.IntegerField(choices=(
-        (1, 'staff'),
-        (2, 'user'),
+        (1, 'admin'),
+        (2, 'staff'),
+        (3, 'user'),
     ))
     phone = models.IntegerField()
     passport = models.CharField(max_length=210)
