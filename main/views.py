@@ -42,6 +42,14 @@ def staff_view(request):
 
 
 @login_required(login_url='login')
+def rooms_view(request):
+    context = {
+        'room': Rooms.objects.all()
+    }
+    return render(request, 'rooms.html', context)
+
+
+@login_required(login_url='login')
 def role_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -79,4 +87,34 @@ def category_view(request):
         'category': Category.objects.all()
     }
     return render(request, 'category.html', context)
+
+
+@login_required(login_url='login')
+def food_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        price = request.POST.get('price')
+        img = request.FILES.get('img')
+        bio = request.POST.get('bio')
+        Food.objects.create(name=name, price=price, img=img, bio=bio)
+        return redirect('food')
+    context = {
+        'food': Food.objects.all()
+    }
+    return render(request, 'food.html', context)
+
+
+@login_required(login_url='login')
+def menu_view(request):
+    if request.method == 'POST':
+        food = request.POST.getlist('food')
+        m = Menu.objects.create()
+        for i in food:
+            m.food.add(i)
+        return redirect('menu')
+    context = {
+        'food': Food.objects.all(),
+        'menu': Menu.objects.all()
+    }
+    return render(request, 'menu.html', context)
 

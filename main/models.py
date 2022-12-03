@@ -59,6 +59,7 @@ class Food(models.Model):
     name = models.CharField(max_length=210)
     price = models.IntegerField()
     img = models.ImageField(upload_to='food/')
+    bio = models.TextField()
 
 
 class Menu(models.Model):
