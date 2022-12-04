@@ -11,7 +11,7 @@ urlpatterns = [
     path("category/", CategoryView.as_view({'get': 'list'})),
     path("info/", InfoView.as_view({'get': 'list'})),
     path("food/", FoodView.as_view({'get': 'list'})),
-    path("menu/", MenutView.as_view({'get': 'list'})),
+    path("menu/", MenuView.as_view({'get': 'list'})),
     path("rooms/", RoomsView.as_view({'get': 'list'})),
     path("ads/", AdsView.as_view({'get': 'list'})),
     path("hotel/", HotelView.as_view({'get': 'list'})),
