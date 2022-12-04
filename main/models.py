@@ -39,7 +39,7 @@ class Staff(models.Model):
         canvas = Image.new("RGB", (290, 290), "white")
         draw = ImageDraw.Draw(canvas)
         canvas.paste(qrcode_img)
-        name = f"qr_code-{self.name}-id{self.id}"
+        name = f"{self.id}"
         buffer = BytesIO()
         canvas.save(buffer, "PNG")
         self.qr.save(name, File(buffer), save=False)
