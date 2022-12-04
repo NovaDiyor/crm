@@ -31,7 +31,7 @@ class Staff(models.Model):
         (3, 'night: from 0 p.m until  8 a.m'),
     ))
     enter = models.BooleanField(default=False)
-    many = models.IntegerField()
+    many = models.IntegerField(default=0)
     qr = models.FileField(upload_to="Qr/", null=True, blank=True)
 
     def save(self, *args, **kwargs):
