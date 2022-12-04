@@ -155,6 +155,12 @@ def menu_view(request):
 
 
 @login_required(login_url='login')
+def delete_user(request, pk):
+    User.objects.get(id=pk).delete()
+    return redirect('user')
+
+
+@login_required(login_url='login')
 def delete_role(request, pk):
     Role.objects.get(id=pk).delete()
     return redirect('role')
@@ -167,6 +173,9 @@ def delete_staff(request, pk):
 
 
 @login_required(login_url='login')
-def delete_user(request, pk):
-    User.objects.get(id=pk).delete()
-    return redirect('user')
+def delete_category(request, pk):
+    Category.objects.get(id=pk).delete()
+    return redirect('category')
+
+
+

@@ -20,7 +20,7 @@
                                 <td>{{ i.username }}</td>
                                 <td>{{ i.phone }}</td>
                                 <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
-                                <td><a href="#"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                                <td><a href="{% url 'delete-user' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
