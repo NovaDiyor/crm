@@ -64,6 +64,41 @@ def rooms_view(request):
 
 
 @login_required(login_url='login')
+def add_user(request):
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            cp = request.POST.get('confirm-password')
+            phone = request.POST.get('phone')
+            if cp == password:
+                User.objects.create(username=username, password=password, phone=phone, status=2)
+                return redirect('add-staff')
+            else:
+                return redirect('add-user')
+    except Exception as err:
+        return err
+    return render(request, 'staff-user.html')
+
+
+@login_required(login_url='login')
+def customer_view(request):
+    try:
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            passport = request.POST.get('passport')
+            User.objects.create(username='', first_name=name, phone=phone, passport=passport)
+            return redirect('customer')
+        context = {
+            'customer': User.objects.filter(status=3)
+        }
+        return render(request, 'customer.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
 def role_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -92,24 +127,6 @@ def add_staff(request):
         'role': Role.objects.all()
     }
     return render(request, 'add-staff.html', context)
-
-
-@login_required(login_url='login')
-def add_user(request):
-    try:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            cp = request.POST.get('confirm-password')
-            phone = request.POST.get('phone')
-            if cp == password:
-                User.objects.create(username=username, password=password, phone=phone, status=2)
-                return redirect('add-staff')
-            else:
-                return redirect('add-user')
-    except Exception as err:
-        return err
-    return render(request, 'staff-user.html')
 
 
 @login_required(login_url='login')
@@ -152,6 +169,125 @@ def menu_view(request):
         'menu': Menu.objects.all()
     }
     return render(request, 'menu.html', context)
+
+
+@login_required(login_url='login')
+def image_view(request):
+    try:
+        if request.method == 'POST':
+            img = request.FILES.get('img')
+            Images.objects.create(img=img)
+            return redirect('image')
+        context = {
+            'img': Images.objects.all()
+        }
+        return render(request, 'image.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def room_view(request):
+    context = {
+        'room': Rooms.objects.all()
+    }
+    return render(request, 'room.html', context)
+
+
+@login_required(login_url='login')
+def add_room(request):
+    try:
+        if request.method == 'POST':
+            request = request.POST.get
+            category = request('category')
+            price = request('price')
+            info = request.POST.getlist('info')
+            bed = request('bed')
+            bio = request('bio')
+            tv = request('tv')
+            if tv is None:
+                tv = False
+            img = request.POST.getlist('img')
+            video = request.FILES.get('video')
+            rm = Rooms.objects.create(category_id=category, price=price, bed=bed, bio=bio, tv=tv, video=video)
+            for i in info:
+                rm.info.add(i)
+            for i in img:
+                rm.img.add(i)
+            return redirect('room')
+        context = {
+            'img': Images.objects.all(),
+            'info': Info.objects.all(),
+        }
+        return render(request, 'add-room.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def des_view(request):
+    try:
+        if request.method == 'POST':
+            room = request.POST.get('room')
+            number = request.POST.get('number')
+            Description.objects.create(rooms_id=room, number=number)
+            return redirect('description')
+        context = {
+            'room': Rooms.objects.all(),
+            'des': Description.objects.all()
+        }
+        return render(request, 'description.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def order_view(request):
+    try:
+        if request.method == 'POST':
+            user = request.POST.get('user')
+            room = request.POST.get('room')
+            start = request.POST.get('start')
+            end = request.POST.get('end')
+            Order.objects.create(user_id=user, room_id=room, start=start, end=end)
+            return redirect('order')
+        context = {
+            'users': User.objects.filter(status=3),
+            'room': Description.objects.all(),
+            'order': Order.objects.all()
+        }
+        return render(request, 'order.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def ads_view(request):
+    try:
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            img = request.FILES.get('img')
+            url = request.POST.get('url')
+            Ads.objects.create(name=name, img=img, url=url)
+            return redirect('ads')
+        context = {
+            'ads': Ads.objects.all()
+        }
+        return render(request, 'ads.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def hotel_images_view(request):
+    if request.method == 'POST':
+        img = request.FILES.get('img')
+        HotelImage.objects.create(img=img)
+        return redirect('hotel-image')
+    context = {
+        'img': HotelImage.objects.all()
+    }
+    return render(request, 'hotel-image.html', context)
 
 
 @login_required(login_url='login')

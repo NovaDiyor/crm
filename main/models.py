@@ -130,6 +130,10 @@ class Ads(models.Model):
     url = models.CharField(max_length=210)
 
 
+class HotelImage(models.Model):
+    img = models.ImageField(upload_to='hotel/')
+
+
 class Hotel(models.Model):
     name = models.CharField(max_length=210)
     city = models.CharField(max_length=210)
@@ -141,7 +145,7 @@ class Hotel(models.Model):
         (5, '5-start'),
     ))
     rooms = models.ManyToManyField(Rooms)
-    img = models.ImageField(upload_to='hotel/')
+    img = models.ManyToManyField(HotelImage)
     ads = models.ManyToManyField(Ads)
 
 
