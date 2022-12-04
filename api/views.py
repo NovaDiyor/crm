@@ -91,9 +91,9 @@ class FoodView(viewsets.ReadOnlyModelViewSet):
     serializer_class = FoodSerializer
 
 
-class RestaurantView(viewsets.ReadOnlyModelViewSet):
-    queryset = Restaurant.objects.all()
-    serializer_class = RestaurantSerializer
+class MenuView(viewsets.ReadOnlyModelViewSet):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
 
 
 class RoomsView(viewsets.ReadOnlyModelViewSet):
