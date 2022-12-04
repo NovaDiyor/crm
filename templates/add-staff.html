@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form action="{% url 'add-staff' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" name="l-name" class="form-control mb-3" placeholder="Last Name" required>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="status" aria-label=".form-select-lg example" required>
+                            {% for i in role %}
+                                <option value="{{ i.id }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control bg-dark mb-3" name="img" type="file" required>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="user" aria-label=".form-select-lg example" required>
+                            <option value="{{ users.id }}">{{ users.username }}</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="time" aria-label=".form-select-lg example" required>
+                            <option value="1">Morning</option>
+                            <option value="2">Afternoon</option>
+                            <option value="3">Night</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

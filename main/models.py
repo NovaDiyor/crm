@@ -24,13 +24,14 @@ class Role(models.Model):
 
 class Staff(models.Model):
     name = models.CharField(max_length=210)
+    l_name = models.CharField(max_length=210)
     status = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True)
     img = models.ImageField(max_length=210)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.IntegerField(choices=(
-        (1, 'morning: from 8 a.m until 4 p.m'),
-        (2, 'afternoon: from 4 p.m until 0 p.m'),
-        (3, 'night: from 0 p.m until  8 a.m'),
+        (1, 'Morning: from 8 a.m until 4 p.m'),
+        (2, 'Afternoon: from 4 p.m until 0 p.m'),
+        (3, 'Night: from 0 p.m until  8 a.m'),
     ))
     enter = models.BooleanField(default=False)
     many = models.IntegerField(default=0)

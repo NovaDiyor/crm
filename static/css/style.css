@@ -287,3 +287,16 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.df {
+   display: flex;
+    justify-content: center;
+}
+
+.tl {
+    text-align: center;
+}
+
+.ml {
+    margin-left: 2rem
+}

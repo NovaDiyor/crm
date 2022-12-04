@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form action="{% url 'add-user' %}" method="post">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <input type="text" name="username" class="form-control mb-3" placeholder="Username" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="password" name="confirm-password" class="form-control mb-3" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" name="phone" class="form-control mb-3" placeholder="Phone" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
