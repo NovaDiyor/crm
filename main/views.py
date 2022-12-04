@@ -178,4 +178,63 @@ def delete_category(request, pk):
     return redirect('category')
 
 
+@login_required(login_url='login')
+def delete_info(request, pk):
+    Info.objects.get(id=pk).delete()
+    return redirect('info')
+
+
+@login_required(login_url='login')
+def delete_food(request, pk):
+    Food.objects.get(id=pk).delete()
+    return redirect('food')
+
+
+@login_required(login_url='login')
+def delete_menu(request, pk):
+    Menu.objects.get(id=pk).delete()
+    return redirect('menu')
+
+
+@login_required(login_url='login')
+def delete_images(request, pk):
+    Images.objects.get(id=pk).delete()
+    return redirect('images')
+
+
+@login_required(login_url='login')
+def delete_room(request, pk):
+    Rooms.objects.get(id=pk).delete()
+    return redirect('room')
+
+
+@login_required(login_url='login')
+def delete_des(request, pk):
+    Description.objects.get(id=pk).delete()
+    return redirect('description')
+
+
+@login_required(login_url='login')
+def delete_order(request, pk):
+    Order.objects.get(id=pk).delete()
+    return redirect('order')
+
+
+@login_required(login_url='login')
+def delete_ads(request, pk):
+    Ads.objects.get(id=pk).delete()
+    return redirect('ads')
+
+
+@login_required(login_url='login')
+def delete_hotel(request, pk):
+    Hotel.objects.get(id=pk).delete()
+    return redirect('hotel')
+
+
+
+
+
+
+
 

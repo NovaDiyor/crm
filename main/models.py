@@ -142,5 +142,6 @@ class Hotel(models.Model):
     ))
     rooms = models.ManyToManyField(Rooms)
     img = models.ImageField(upload_to='hotel/')
+    ads = models.ManyToManyField(Ads)
 
 
