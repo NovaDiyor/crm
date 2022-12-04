@@ -7,12 +7,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    status = models.IntegerField(choices=(
+    status = models.IntegerField(default=3, choices=(
         (1, 'admin'),
         (2, 'staff'),
         (3, 'user'),
     ))
-    phone = models.IntegerField()
+    phone = models.IntegerField(null=True, blank=True)
     passport = models.CharField(max_length=210)
 
 
