@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from io import BytesIO
 import qrcode
@@ -68,17 +70,18 @@ class Menu(models.Model):
     food = models.ManyToManyField(Food)
 
 
+class Images(models.Model):
+    img = models.ImageField(upload_to='rooms')
+
+
 class Rooms(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    number = models.IntegerField()
     price = models.IntegerField()
     info = models.ManyToManyField(Info)
     bed = models.IntegerField()
     bio = models.TextField()
     tv = models.BooleanField(default=True)
-    busy = models.BooleanField(default=False)
-    quantity = models.IntegerField()
-    img = models.ImageField(upload_to='rooms/')
+    img = models.ManyToManyField(Images)
     video = models.FileField(upload_to='rooms/', null=True, blank=True)
     is_video = models.BooleanField(default=False)
     rating = models.IntegerField(choices=(
@@ -98,11 +101,27 @@ class Rooms(models.Model):
         super(Rooms, self).save(*args, **kwargs)
 
 
+class Description(models.Model):
+    rooms = models.ForeignKey(Rooms, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    busy = models.BooleanField(default=False)
+
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    room = models.ForeignKey(Rooms, on_delete=models.PROTECT, null=True, blank=True)
+    room = models.ForeignKey(Description, on_delete=models.PROTECT, null=True, blank=True)
     start = models.DateField()
     end = models.DateField()
+
+    def save(self, *args, **kwargs):
+        room = self.room
+        day = date.today()
+        if self.start.day == day.day:
+            room.busy = True
+        if self.end.day == day.day:
+            room.busy = False
+        room.save()
+        super(Order, self).save(*args, **kwargs)
 
 
 class Ads(models.Model):
