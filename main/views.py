@@ -5,7 +5,7 @@ from .models import *
 
 
 def error_view(request):
-    return render(request, 'error.html')
+    return render(request, '404.html')
 
 
 def login_view(request):

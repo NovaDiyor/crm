@@ -13,7 +13,7 @@ class User(AbstractUser):
         (3, 'user'),
     ))
     phone = models.IntegerField(null=True, blank=True)
-    passport = models.CharField(max_length=210)
+    passport = models.CharField(max_length=210, null=True, blank=True)
 
 
 class Role(models.Model):
@@ -77,8 +77,7 @@ class Rooms(models.Model):
     bio = models.TextField()
     tv = models.BooleanField(default=True)
     busy = models.BooleanField(default=False)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    quantity = models.IntegerField()
     img = models.ImageField(upload_to='rooms/')
     video = models.FileField(upload_to='rooms/', null=True, blank=True)
     is_video = models.BooleanField(default=False)
@@ -89,7 +88,6 @@ class Rooms(models.Model):
         (4, '4-start'),
         (5, '5-start'),
     ))
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.video:
@@ -98,6 +96,13 @@ class Rooms(models.Model):
             is_video = False
         self.is_video = is_video
         super(Rooms, self).save(*args, **kwargs)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Rooms, on_delete=models.PROTECT, null=True, blank=True)
+    start = models.DateField()
+    end = models.DateField()
 
 
 class Ads(models.Model):
