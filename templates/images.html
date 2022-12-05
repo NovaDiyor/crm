@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
-                <form action="{% url 'image' %}" method="post" class="df">
+                <form action="{% url 'image' %}" method="post" class="df" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-10">
                         <input class="form-control bg-dark me-2" name="img" type="file" required>

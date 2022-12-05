@@ -17,9 +17,9 @@
                     <tbody>
                         {% for i in users %}
                             <tr>
-                                <td>{{ i.username }}</td>
+                                <td>{{ i.first_name }}</td>
                                 <td>{{ i.phone }}</td>
-                                <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                <td><a href="{% url 'update-user' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
                                 <td><a href="{% url 'delete-user' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                             </tr>
                         {% endfor %}

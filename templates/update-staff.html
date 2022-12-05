@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <form action="{% url 'update-staff' staff.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="col-12">
+                             <select class="form-select form-select-lg mb-3" name="status" aria-label=".form-select-lg example" required>
+                                <option value="{{ staff.status.id }}" selected>{{ staff.status.name }}</option>
+                                 {% for i in role %}
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                 {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <select class="form-select form-select-lg mb-3" name="time" aria-label=".form-select-lg example" required>
+                                <option value="1">Morning</option>
+                                <option value="2">Afternoon</option>
+                                <option value="3">Night</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

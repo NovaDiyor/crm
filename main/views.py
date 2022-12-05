@@ -50,7 +50,7 @@ def staff_view(request):
 @login_required(login_url='login')
 def users_view(request):
     context = {
-        'users': User.objects.all()
+        'users': User.objects.filter(status=2)
     }
     return render(request, 'users.html', context)
 
@@ -67,12 +67,14 @@ def rooms_view(request):
 def add_user(request):
     try:
         if request.method == 'POST':
+            number = 0
             username = request.POST.get('username')
             password = request.POST.get('password')
             cp = request.POST.get('confirm-password')
             phone = request.POST.get('phone')
             if cp == password:
-                User.objects.create(username=username, password=password, phone=phone, status=2)
+                number += 1
+                User.objects.create(username=number, first_name=username, password=password, phone=phone, status=2)
                 return redirect('add-staff')
             else:
                 return redirect('add-user')
@@ -368,16 +370,11 @@ def update_user(request, pk):
         usr = User.objects.get(id=pk)
         if request.method == 'POST':
             username = request.POST.get('username')
-            lp = request.POST.get('lp')
-            np = request.POST.get('np')
-            cp = request.POST.get('cp')
             phone = request.POST.get('phone')
-            if lp == usr.password:
-                if cp == np:
-                    usr.username = username
-                    usr.password = np
-                    usr.phone = phone
-                    return redirect('users')
+            usr.first_name = username
+            usr.phone = phone
+            usr.save()
+            return redirect('users')
         context = {
             'users': usr
         }
@@ -393,6 +390,7 @@ def update_role(request, pk):
         if request.method == 'POST':
             name = request.POST.get('name')
             rl.name = name
+            rl.save()
             return redirect('role')
         context = {
             'role': rl
@@ -406,30 +404,21 @@ def update_role(request, pk):
 def update_staff(request, pk):
     try:
         st = Staff.objects.get(id=pk)
+        print(st.status)
         if request.method == 'POST':
-            name = request.POST.get('name')
-            l_name = request.POST.get('l-name')
             status = request.POST.get('status')
-            img = request.FILES.get('img')
-            user = request.POST.get('user')
             time = request.POST.get('time')
-            st.name = name
-            st.l_name = l_name
-            st.status = status
-            if img:
-                st.img = img
-            else:
-                st.img = st.img
-            st.user_id = user
+            st.status_id = status
             st.time = time
+            st.save()
             return redirect('staff')
         context = {
-            'users': User.objects.filter(status=2),
+            'role': Role.objects.all(),
             'staff': st
         }
         return render(request, 'update-staff.html', context)
     except Exception as err:
-        return err
+        print(err)
 
 
 @login_required(login_url='login')

@@ -27,12 +27,12 @@
                                     <td>{{ i.l_name }}</td>
                                     <td>{{ i.status.name }}</td>
                                     <td><img src="{{ i.img.url }}" alt="{{ i.img }}" width="40px" height="40px"></td>
-                                    <td>{{ i.user.username }}</td>
+                                    <td>{{ i.user.first_name }}</td>
                                     <td>{{ i.get_time_display }}</td>
                                     <td>{{ i.enter }}</td>
                                     <td>{{ i.many }}</td>
-                                    <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
-                                    <td><a href="#"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                                    <td><a href="{% url 'update-staff' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                    <td><a href="{% url 'delete-staff' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>

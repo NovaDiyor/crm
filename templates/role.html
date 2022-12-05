@@ -32,7 +32,7 @@
                             {% for i in role %}
                                 <tr>
                                     <td>{{ i.name }}</td>
-                                    <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                    <td><a href="{% url 'update-role' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
                                     <td><a href="{% url 'delete-role' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                                 </tr>
                             {% endfor %}

@@ -32,7 +32,7 @@
                             {% for i in category %}
                                 <tr>
                                     <td>{{ i.name }}</td>
-                                    <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                    <td><a href="{% url 'update-category' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
                                     <td><a href="{% url 'delete-category' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                                 </tr>
                             {% endfor %}
