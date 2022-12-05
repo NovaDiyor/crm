@@ -181,7 +181,7 @@ def image_view(request):
         context = {
             'img': Images.objects.all()
         }
-        return render(request, 'image.html', context)
+        return render(request, 'images.html', context)
     except Exception as err:
         return err
 
@@ -230,8 +230,13 @@ def des_view(request):
         if request.method == 'POST':
             room = request.POST.get('room')
             number = request.POST.get('number')
-            Description.objects.create(rooms_id=room, number=number)
-            return redirect('description')
+            rm = Rooms.objects.all()
+            for i in rm:
+                if i.id == room:
+                    return redirect('des')
+                else:
+                    Description.objects.create(rooms_id=room, number=number)
+                    return redirect('description')
         context = {
             'room': Rooms.objects.all(),
             'des': Description.objects.all()
