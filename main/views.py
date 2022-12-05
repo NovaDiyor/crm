@@ -180,7 +180,25 @@ def get_menu(request, pk):
     context = {
         'menu': mn.food.all()
     }
-    return render(request, 'het-menu.html', context)
+    return render(request, 'get-menu.html', context)
+
+
+@login_required(login_url='login')
+def get_info(request, pk):
+    info = Rooms.objects.get(id=pk)
+    context = {
+        'info': info.info.all()
+    }
+    return render(request, 'get-info.html', context)
+
+
+@login_required(login_url='login')
+def get_img(request, pk):
+    image = Rooms.objects.get(id=pk)
+    context = {
+        'img': image.img.all()
+    }
+    return render(request, 'get-image.html', context)
 
 
 @login_required(login_url='login')

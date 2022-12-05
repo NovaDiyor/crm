@@ -26,10 +26,10 @@
                             <tr>
                                 <td>{{ i.category.name }}</td>
                                 <td>{{ i.price }}$</td>
-                                <td>{{ i.info.first.name }}</td>
+                                <td><a href="{% url 'get-info' i.id %}">{{ i.info.first.name }}</a></td>
                                 <td>{{ i.bed }}</td>
                                 <td>{{ i.tv }}</td>
-                                <td>{{ i.img.first.id }}</td>
+                                <td><a href="{% url 'get-img' i.id %}"><img src="{{ i.img.first.id }}" width="20" height="20"></a></td>
                                 {% if is_video == True %}
                                     <td>{{ i.video }}</td>
                                 {% else %}
