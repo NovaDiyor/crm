@@ -291,6 +291,386 @@ def hotel_images_view(request):
 
 
 @login_required(login_url='login')
+def hotel_view(request):
+    context = {
+        'hotel': Hotel.objects.all()
+    }
+    return render(request, 'hotel.html', context)
+
+
+@login_required(login_url='login')
+def add_hotel(request):
+    try:
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            city = request.POST.get('city')
+            rating = request.POST.get('rating')
+            room = request.POST.getlist('room')
+            img = request.POST.getlist('img')
+            ads = request.POST.getlist('ads')
+            h = Hotel.objects.create(name=name, city=city, rating=rating)
+            for i in room:
+                h.rooms.add(i)
+            for i in img:
+                h.img.add(i)
+            for i in ads:
+                h.ads.add(i)
+            return redirect('hotel')
+        context = {
+            'room': Rooms.objects.all(),
+            'hotel': HotelImage.objects.all(),
+            'ads': Ads.objects.all(),
+        }
+        return render(request, 'add-hotel.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_user(request, pk):
+    try:
+        usr = User.objects.get(id=pk)
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            lp = request.POST.get('lp')
+            np = request.POST.get('np')
+            cp = request.POST.get('cp')
+            phone = request.POST.get('phone')
+            if lp == usr.password:
+                if cp == lp:
+                    usr.username = username
+                    usr.password = np
+                    usr.phone = phone
+                    return redirect('users')
+        context = {
+            'users': usr
+        }
+        return render(request, 'update-user.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_customer(request, pk):
+    try:
+        usr = User.objects.get(id=pk)
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            phone = request.POST.get('phone')
+            passport = request.POST.get('passport')
+            usr.first_name = username
+            usr.phone = phone
+            usr.passport = passport
+            return redirect('customer')
+        context = {
+            'customer': usr
+        }
+        return render(request, 'update-customer.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_role(request, pk):
+    try:
+        rl = Role.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            rl.name = name
+            return redirect('role')
+        context = {
+            'role': rl
+        }
+        return render(request, 'update-role.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_staff(request, pk):
+    try:
+        st = Staff.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            l_name = request.POST.get('l-name')
+            status = request.POST.get('status')
+            img = request.FILES.get('img')
+            user = request.POST.get('user')
+            time = request.POST.get('time')
+            st.name = name
+            st.l_name = l_name
+            st.status = status
+            if img:
+                st.img = img
+            else:
+                st.img = st.img
+            st.user_id = user
+            st.time = time
+            return redirect('staff')
+        context = {
+            'users': User.objects.filter(status=2),
+            'staff': st
+        }
+        return render(request, 'update-staff.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_category(request, pk):
+    try:
+        cg = Category.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            cg.name = name
+        context = {
+            'category': cg
+        }
+        return render(request, 'update-category.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_info(request, pk):
+    try:
+        io = Info.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            icon = request.FILES.get('icon')
+            io.name = name
+            if icon:
+                io.icon = icon
+            else:
+                io.icon = io.icon
+        context = {
+            'info': io
+        }
+        return render(request, 'update-info.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_food(request, pk):
+    try:
+        fd = Food.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            price = request.POST.get('price')
+            img = request.FILES.get('img')
+            bio = request.POST.get('bio')
+            fd.name = name
+            fd.price = price
+            if img:
+                fd.img = img
+            else:
+                fd.img = fd.img
+            fd.bio = fd.bio
+            return redirect('food')
+        context = {
+            'food': fd
+        }
+        return render(request, 'update-food.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_menu(request, pk):
+    try:
+        mn = Menu.objects.get(id=pk)
+        if request.method == 'POST':
+            day = request.POST.get('day')
+            food = request.POST.getlist('menu')
+            mn.day = day
+            mn.food.clean()
+            for i in food:
+                mn.food.add(i)
+            return redirect('menu')
+        context = {
+            'menu': mn,
+            'food': Food.objects.all()
+        }
+        return render(request, 'update-menu.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_images(request, pk):
+    try:
+        im = Images.objects.get(id=pk)
+        if request.method == 'POST':
+            img = request.POST.get('img')
+            if img:
+                im.img = img
+            else:
+                im.img = im.img
+            return redirect('image')
+        return render(request, 'update-images.html')
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_room(request, pk):
+    try:
+        rm = Rooms.objects.get(id=pk)
+        if request.method == 'POST':
+            request = request.POST.get
+            category = request('category')
+            price = request('price')
+            info = request.POST.getlist('info')
+            bed = request('bed')
+            bio = request('bio')
+            tv = request('tv')
+            if tv is None:
+                tv = False
+            img = request.POST.getlist('img')
+            video = request.FILES.get('video')
+            rm.category_id = category
+            rm.price = price
+            rm.bed = bed
+            rm.bio = bio
+            rm.tv = tv
+            if video:
+                rm.video = video
+            else:
+                rm.video = video
+            rm.info.clean()
+            for i in info:
+                rm.info.add(i)
+            rm.img.clean()
+            for i in img:
+                rm.img.add(i)
+            return redirect('room')
+        context = {
+            'img': Images.objects.all(),
+            'info': Info.objects.all(),
+            'room': rm,
+        }
+        return render(request, 'update-room.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_des(request, pk):
+    try:
+        de = Description.objects.get(id=pk)
+        if request.method == 'POST':
+            room = request.POST.get('room')
+            number = request.POST.get('number')
+            busy = request.POST.get('busy')
+            de.room_id = room
+            de.number = number
+            de.busy = busy
+        context = {
+            'about': de
+        }
+        return render(request, 'update-about.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_order(request, pk):
+    try:
+        rd = Order.objects.get(id=pk)
+        if request.method == 'POST':
+            user = request.POST.get('user')
+            room = request.POST.get('room')
+            start = request.POST.get('start')
+            end = request.POST.get('end')
+            rd.user_id = user
+            rd.room_id = room
+            rd.start = start
+            rd.end = end
+            return redirect('order')
+        context = {
+            'order': rd
+        }
+        return render(request, 'update-order.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_ads(request, pk):
+    try:
+        ads = Ads.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            img = request.FILES.get('img')
+            url = request.POST.get('url')
+            if img:
+                ads.img = img
+            else:
+                ads.img = ads.img
+            ads.name = name
+            ads.url = url
+        context = {
+            'ads': ads
+        }
+        return render(request, 'update-ads.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_hotel_image(request, pk):
+    try:
+        im = HotelImage.objects.get(id=pk)
+        if request.method == 'POST':
+            img = request.POST.get('img')
+            if img:
+                im.img = img
+            else:
+                im.img = im.img
+            return redirect('hotel-image')
+        context = {
+            'img': im
+        }
+        return render(request, 'update-hotel-img.html', context)
+    except Exception as err:
+        return err
+
+
+@login_required(login_url='login')
+def update_hotel(request, pk):
+    try:
+        ht = Hotel.objects.get(id=pk)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            city = request.POST.get('city')
+            rating = request.POST.get('rating')
+            room = request.POST.getlist('room')
+            img = request.POST.getlist('img')
+            ads = request.POST.getlist('ads')
+            ht.name = name
+            ht.city = city
+            ht.rating = rating
+            ht.rooms.clean()
+            for i in room:
+                ht.rooms.add(i)
+            ht.img.clean()
+            for i in img:
+                ht.img.add(i)
+            ht.ads.clean()
+            for i in ads:
+                ht.ads.add(i)
+        context = {
+            'hotel': ht,
+            'room': Rooms.objects.all(),
+            'img': HotelImage.objects.all(),
+            'ads': Ads.objects.all(),
+        }
+        return render(request, 'update-hotel.html', context)
+    except Exception as err:
+        return err
+
+
 def delete_user(request, pk):
     User.objects.get(id=pk).delete()
     return redirect('user')
