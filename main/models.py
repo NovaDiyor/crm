@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.db import models
 from io import BytesIO
 import qrcode
@@ -109,18 +109,8 @@ class Description(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Description, on_delete=models.PROTECT, null=True, blank=True)
-    start = models.DateField()
-    end = models.DateField()
-
-    def save(self, *args, **kwargs):
-        room = self.room
-        day = date.today()
-        if self.start.day == day.day:
-            room.busy = True
-        if self.end.day == day.day:
-            room.busy = False
-        room.save()
-        super(Order, self).save(*args, **kwargs)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
 
 
 class Ads(models.Model):
