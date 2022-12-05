@@ -83,19 +83,10 @@ def add_user(request):
 
 @login_required(login_url='login')
 def customer_view(request):
-    try:
-        if request.method == 'POST':
-            name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            passport = request.POST.get('passport')
-            User.objects.create(username='', first_name=name, phone=phone, passport=passport)
-            return redirect('customer')
-        context = {
-            'customer': User.objects.filter(status=3)
-        }
-        return render(request, 'customer.html', context)
-    except Exception as err:
-        return err
+    context = {
+        'customer': User.objects.filter(status=3)
+    }
+    return render(request, 'customer.html', context)
 
 
 @login_required(login_url='login')
@@ -350,26 +341,6 @@ def update_user(request, pk):
             'users': usr
         }
         return render(request, 'update-user.html', context)
-    except Exception as err:
-        return err
-
-
-@login_required(login_url='login')
-def update_customer(request, pk):
-    try:
-        usr = User.objects.get(id=pk)
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            phone = request.POST.get('phone')
-            passport = request.POST.get('passport')
-            usr.first_name = username
-            usr.phone = phone
-            usr.passport = passport
-            return redirect('customer')
-        context = {
-            'customer': usr
-        }
-        return render(request, 'update-customer.html', context)
     except Exception as err:
         return err
 
