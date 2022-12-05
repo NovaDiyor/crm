@@ -5,10 +5,13 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-12">
                 <div class="bg-secondary rounded h-100 p-4">
-                    <form action="{% url 'category' %}" method="post" class="df">
+                    <form action="{% url 'info' %}" method="post" class="df">
                         {% csrf_token %}
-                        <div class="col-8">
-                            <input type="text" name="name" class="form-control" placeholder="Category" required>
+                        <div class="col-5">
+                            <input type="text" name="name" class="form-control me-2" placeholder="Category" required>
+                        </div>
+                        <div class="col-5">
+                            <input class="form-control bg-dark mb-3" name="img" type="file" required>
                         </div>
                         <button type="submit" class="btn btn-primary ml">Add</button>
                     </form>
@@ -23,17 +26,19 @@
                     <table class="table table-hover tl">
                         <thead>
                             <tr>
-                                <th scope="col">Category</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Update</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in category %}
+                            {% for i in info %}
                                 <tr>
                                     <td>{{ i.name }}</td>
-                                    <td><a href="#"><img src="{% static 'icons/edit.svg' %}"></a></td>
-                                    <td><a href="{% url 'delete-category' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                                    <td><img src="{{ i.img.url }}" width="20" height="20"></td>
+                                    <td><a href="{% url 'update-info' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                    <td><a href="{% url 'delete-info' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>

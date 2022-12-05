@@ -44,7 +44,35 @@
                         <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Dashboard</a>
                     {% endif %}
                     <div class="nav-item dropdown">
-                        {% if request.path == '/role/' or 'staff/users/' or '/staff/' or 'staff/user/add/' or '/staff/add/' %}
+                        {% if request.path == '/role/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="fa fa-th-list me-2"></i>Staff</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'role' %}" class="dropdown-item ml">Role For Staff</a>
+                                <a href="{% url 'users' %}" class="dropdown-item ml">Users For Staff</a>
+                                <a href="{% url 'staff' %}" class="dropdown-item ml">Staff</a>
+                            </div>
+                        {% elif request.path == 'staff/users/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="fa fa-th-list me-2"></i>Staff</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'role' %}" class="dropdown-item ml">Role For Staff</a>
+                                <a href="{% url 'users' %}" class="dropdown-item ml">Users For Staff</a>
+                                <a href="{% url 'staff' %}" class="dropdown-item ml">Staff</a>
+                            </div>
+                        {% elif request.path == '/staff/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="fa fa-th-list me-2"></i>Staff</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'role' %}" class="dropdown-item ml">Role For Staff</a>
+                                <a href="{% url 'users' %}" class="dropdown-item ml">Users For Staff</a>
+                                <a href="{% url 'staff' %}" class="dropdown-item ml">Staff</a>
+                            </div>
+                        {% elif request.path == 'staff/user/add/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="fa fa-th-list me-2"></i>Staff</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'role' %}" class="dropdown-item ml">Role For Staff</a>
+                                <a href="{% url 'users' %}" class="dropdown-item ml">Users For Staff</a>
+                                <a href="{% url 'staff' %}" class="dropdown-item ml">Staff</a>
+                            </div>
+                        {% elif request.path == '/staff/add/' %}
                             <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="fa fa-th-list me-2"></i>Staff</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="{% url 'role' %}" class="dropdown-item ml">Role For Staff</a>
@@ -61,7 +89,95 @@
                         {% endif %}
                     </div>
                     <div class="nav-item dropdown">
-                        {% if request.path == '/rooms/image/' or '/category/' or '/rooms/' or '/about/rooms/' or '/rooms/add/' or '/ads/' or '/hotel/' or '/hotel/images/' or '/hotel/add/' %}
+                        {% if request.path == '/rooms/image/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/category/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/rooms/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/about/rooms/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/rooms/add/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == 'ads' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/hotel/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/hotel/images/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
+                                <a href="{% url 'image' %}" class="dropdown-item">Room Image</a>
+                                <a href="{% url 'room' %}" class="dropdown-item">Room</a>
+                                <a href="{% url 'des' %}" class="dropdown-item">About Room</a>
+                                <a href="{% url 'ads' %}" class="dropdown-item">Advertisers</a>
+                                <a href="{% url 'hotel-image' %}" class="dropdown-item">Hotel Image</a>
+                                <a href="{% url 'hotel' %}" class="dropdown-item">Hotel</a>
+                            </div>
+                        {% elif request.path == '/hotel/add/' %}
                             <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Hotel</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="{% url 'category' %}" class="dropdown-item">Room Category</a>
@@ -86,33 +202,31 @@
                         {% endif %}
                     </div>
                     <div class="nav-item dropdown">
-                        {% if request.path == '/food/' or '/menu/' %}
-                        <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Product</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'food' %}" class="dropdown-item">Food</a>
-                            <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
-                        </div>
+                        {% if request.path == '/food/'%}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Product</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'food' %}" class="dropdown-item">Food</a>
+                                <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
+                            </div>
+                        {% elif request.path == '/menu/' %}
+                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Product</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'food' %}" class="dropdown-item">Food</a>
+                                <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
+                            </div>
                         {% else %}
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Product</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'food' %}" class="dropdown-item">Food</a>
-                            <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
-                        </div>
+                            <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Product</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="{% url 'food' %}" class="dropdown-item">Food</a>
+                                <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
+                            </div>
                         {% endif %}
                     </div>
                     <div class="nav-item dropdown">
-                        {% if request.path == '/order/' or '/customer/' %}
-                            <a href="#" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Order</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="{% url 'food' %}" class="dropdown-item">Food</a>
-                                <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
-                            </div>
+                        {% if request.path == '/order/' %}
+                            <a href="{% url 'order' %}" class="nav-link active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Order</a>
                         {% else %}
-                            <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Order</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="{% url 'food' %}" class="dropdown-item">Food</a>
-                                <a href="{% url 'menu' %}" class="dropdown-item">Menu</a>
-                            </div>
+                            <a href="{% url 'order' %}" class="nav-link" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Order</a>
                         {% endif %}
                     </div>
                 </div>

@@ -133,6 +133,19 @@ def category_view(request):
 
 
 @login_required(login_url='login')
+def info_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        img = request.FILES.get('img')
+        Info.objects.create(name=name, img=img)
+        return redirect('info')
+    context = {
+        'info': Info.objects.all()
+    }
+    return render(request, 'info.html', context)
+
+
+@login_required(login_url='login')
 def food_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -159,6 +172,15 @@ def menu_view(request):
         'menu': Menu.objects.all()
     }
     return render(request, 'menu.html', context)
+
+
+@login_required(login_url='login')
+def get_menu(request, pk):
+    mn = Menu.objects.get(id=pk)
+    context = {
+        'menu': mn.food.all()
+    }
+    return render(request, 'het-menu.html', context)
 
 
 @login_required(login_url='login')

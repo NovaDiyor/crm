@@ -4,13 +4,24 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
-                <form action="{% url 'role' %}" method="post" class="df">
-                    {% csrf_token %}
-                    <div class="col-8">
-                        <input type="text" name="name" class="form-control" placeholder="Role" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary ml">Add</button>
-                </form>
+                <table class="table table-hover tl">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Passport</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in customer %}
+                        <tr>
+                            <td>{{ i.first_name }}</td>
+                            <td>{{ i.phone }}</td>
+                            <td>{{ i.passport }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
