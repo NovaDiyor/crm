@@ -145,10 +145,9 @@ def category_view(request):
 def food_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        price = request.POST.get('price')
         img = request.FILES.get('img')
         bio = request.POST.get('bio')
-        Food.objects.create(name=name, price=price, img=img, bio=bio)
+        Food.objects.create(name=name, img=img, bio=bio)
         return redirect('food')
     context = {
         'food': Food.objects.all()
