@@ -341,7 +341,7 @@ def update_user(request, pk):
             cp = request.POST.get('cp')
             phone = request.POST.get('phone')
             if lp == usr.password:
-                if cp == lp:
+                if cp == np:
                     usr.username = username
                     usr.password = np
                     usr.phone = phone
