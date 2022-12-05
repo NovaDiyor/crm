@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form action="{% url 'menu' %}" method="post" class="df">
+                    {% csrf_token %}
+                    <div class="col-10">
+                        <select class="form-select me-2" name="food" multiple aria-label="multiple select example">
+                            {% for i in food %}
+                            <option value="{{ i.id }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary ml">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <table class="table table-hover tl">
+                    <thead>
+                    <tr>
+                        <th scope="col">Menu</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in menu %}
+                    <tr>
+                        <td><a href="{% url 'get-menu' i.id %}">{{ i.food.first.name }}</a></td>
+                        <td>{{ i.day }}</td>
+                        <td><a href="{% url 'update-menu' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                        <td><a href="{% url 'delete-menu' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

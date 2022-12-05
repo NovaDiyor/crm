@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form action="{% url 'add-room' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="category" aria-label=".form-select-lg example" required>
+                            {% for i in category %}
+                                <option value="{{ i.id }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" name="price" class="form-control mb-3" placeholder="Price" required>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="info" aria-label=".form-select-lg example" required>
+                            {% for i in info %}
+                                <option value="{{ i.id }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" name="Bed" class="form-control mb-3" placeholder="How Many Beds" required>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" name="tv" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <label for="flexSwitchCheckChecked">Is Tv In Room</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" name="info" aria-label=".form-select-lg example" required>
+                            {% for i in img %}
+                                <option value="{{ i.id }}">{{ i.id }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control bg-dark mb-3" name="video" type="file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -13,7 +13,7 @@
                         <input type="text" name="l-name" class="form-control mb-3" placeholder="Last Name" required>
                     </div>
                     <div class="col-12">
-                        <select class="form-select form-select-lg mb-3" name="status" aria-label=".form-select-lg example" required>
+                         <select class="form-select form-select-lg mb-3" name="status" aria-label=".form-select-lg example" required>
                             {% for i in role %}
                                 <option value="{{ i.id }}">{{ i.name }}</option>
                             {% endfor %}

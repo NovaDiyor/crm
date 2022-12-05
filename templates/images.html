@@ -24,18 +24,20 @@
                     <thead>
                     <tr>
                         <th scope="col">Room Image</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for i in img %}
-                    <tr>
-                        <td><img src="{{ i.img.url }}" width="20" height="20"></td>
-                        <td><a href="{% url 'update-menu' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
-                        <td><a href="{% url 'delete-menu' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
-                    </tr>
-                    {% endfor %}
+                        {% for i in img %}
+                            <tr>
+                                <td><img src="{{ i.img.url }}" width="20" height="20"></td>
+                                <td>{{ i.id }}</td>
+                                <td><a href="{% url 'update-image' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                <td><a href="{% url 'delete-image' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <table class="table table-hover tl">
+                    <thead>
+                        <tr>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Info</th>
+                            <th scope="col">Bed</th>
+                            <th scope="col">Bio</th>
+                            <th scope="col">Tv</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Video</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in room %}
+                            <tr>
+                                <td>{{ i.category.name }}</td>
+                                <td>{{ i.price }}$</td>
+                                <td>{{ i.info.first.name }}</td>
+                                <td>{{ i.bed }}</td>
+                                <td>{{ i.tv }}</td>
+                                <td>{{ i.img.first.id }}</td>
+                                {% if is_video == True %}
+                                    <td>{{ i.video }}</td>
+                                {% else %}
+                                    <td>None</td>
+                                {% endif %}
+                                <td>{{ i.rating }}</td>
+                                <td><a href="{% url 'update-room' i.id %}"><img src="{% static 'icons/edit.svg' %}"></a></td>
+                                <td><a href="{% url 'delete-room' i.id %}"><img src="{% static 'icons/trash.svg' %}"></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'add-room' %}"><button type="submit" style="margin-left: 1rem" class="btn btn-primary">Add Room</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

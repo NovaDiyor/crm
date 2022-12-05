@@ -229,6 +229,7 @@ def add_room(request):
             return redirect('room')
         context = {
             'img': Images.objects.all(),
+            'category': Category.objects.all(),
             'info': Info.objects.all(),
         }
         return render(request, 'add-room.html', context)
